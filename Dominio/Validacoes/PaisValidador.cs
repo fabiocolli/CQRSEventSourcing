@@ -24,7 +24,7 @@ namespace Dominio.Validacoes
 					.WithMessage("O nome deve conter apenas letras e espaços.");
 			});
 
-			RuleSet("Nomes", () =>
+			RuleSet("Siglas", () =>
 			{
 				RuleFor(p => p.Sigla)
 					.NotEmpty()
