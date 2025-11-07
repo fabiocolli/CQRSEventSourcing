@@ -30,15 +30,8 @@ namespace Web.Api.Controllers
 			if (!resultado.Sucesso)
 				return BadRequest(new { erros = resultado.Erros });
 
-			//return Ok(new { id = resultado.Dados });
-
-			return CreatedAtAction(nameof(ObterPorId), new
-			{
-				id = resultado.Dados
-			}, new
-			{
-				id = resultado.Dados
-			});
+			return CreatedAtAction(nameof(ObterPorId),
+				new { id = resultado.Dados?.Id }, resultado);
 		}
 
 		[Produces("application/json")]

@@ -20,7 +20,7 @@ namespace Aplicacao.ManipuladoresDeComandos
 			_paisValidador = paisValidador;
 		}
 
-		public async Task<ResultadoComando<Guid>> HandleAsync(CriarPaisComando comando)
+		public async Task<ResultadoComando<Pais>> HandleAsync(CriarPaisComando comando)
 		{
 			var dto = comando.Pais;
 			var pais = Pais.Criar(dto.Nome, dto.Sigla);
@@ -30,7 +30,7 @@ namespace Aplicacao.ManipuladoresDeComandos
 
 			if (!resultadoValidacao.IsValid)
 			{
-				return ResultadoComando<Guid>
+				return ResultadoComando<Pais>
 					.Falha(resultadoValidacao.Errors.Select(e => e.ErrorMessage));
 			}
 
@@ -43,15 +43,15 @@ namespace Aplicacao.ManipuladoresDeComandos
 			// Limpar eventos após salvar (bom para evitar reenvio)
 			pais.LimparEventos();
 
-			return ResultadoComando<Guid>.Ok(pais.Id);
+			return ResultadoComando<Pais>.Ok(pais);
 		}
 
-		public async Task<ResultadoComando<Guid>> HandleAsync(AtualizarPaisComando comando)
+		public async Task<ResultadoComando<Pais>> HandleAsync(AtualizarPaisComando comando)
 		{
 			var existente = await _paisRepositorio.ObterPorIdAsync(comando.Id);
 
 			if (existente == null)
-				return ResultadoComando<Guid>.Falha(new[] { "País não encontrado." });
+				return ResultadoComando<Pais>.Falha(new[] { "País não encontrado." });
 
 			var resultadoValidacao = await _paisValidador.ValidateAsync(
 				Pais.Criar(comando.Nome, comando.Sigla),
@@ -59,7 +59,7 @@ namespace Aplicacao.ManipuladoresDeComandos
 
 			if (!resultadoValidacao.IsValid)
 			{
-				return ResultadoComando<Guid>
+				return ResultadoComando<Pais>
 					.Falha(resultadoValidacao.Errors.Select(e => e.ErrorMessage));
 			}
 
@@ -71,7 +71,7 @@ namespace Aplicacao.ManipuladoresDeComandos
 
 			existente.LimparEventos();
 
-			return ResultadoComando<Guid>.Ok(existente.Id);
+			return ResultadoComando<Pais>.Ok(existente);
 		}
 	}
 }
