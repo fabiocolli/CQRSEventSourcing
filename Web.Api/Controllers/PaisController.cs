@@ -25,9 +25,20 @@ namespace Web.Api.Controllers
 		{
 			var cmd = new CriarPaisComando { Pais = dto };
 
-			var id = await _handler.HandleAsync(cmd);
+			var resultado = await _handler.HandleAsync(cmd);
 
-			return CreatedAtAction(nameof(ObterPorId), new { id }, new { id });
+			if (!resultado.Sucesso)
+				return BadRequest(new { erros = resultado.Erros });
+
+			//return Ok(new { id = resultado.Dados });
+
+			return CreatedAtAction(nameof(ObterPorId), new
+			{
+				id = resultado.Dados
+			}, new
+			{
+				id = resultado.Dados
+			});
 		}
 
 		[Produces("application/json")]
@@ -41,7 +52,10 @@ namespace Web.Api.Controllers
 				Sigla = dto.Sigla
 			};
 
-			await _handler.HandleAsync(cmd);
+			var resultado = await _handler.HandleAsync(cmd);
+
+			if (!resultado.Sucesso)
+				return BadRequest(new { erros = resultado.Erros });
 
 			return NoContent();
 		}

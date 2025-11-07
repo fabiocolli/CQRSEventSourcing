@@ -1,6 +1,9 @@
 using Aplicacao.ManipuladoresDeComandos;
 using Aplicacao.Servicos;
+using Dominio.Entidades;
 using Dominio.Interfaces;
+using Dominio.Validacoes;
+using FluentValidation;
 using InfraEstrutura.ContextoContexto;
 using InfraEstrutura.Repositorios;
 using Microsoft.EntityFrameworkCore;
@@ -16,10 +19,9 @@ builder.Services.AddDbContext<Contexto>(options =>
 // Repositórios e serviços
 builder.Services.AddScoped<IPais, PaisRepositorio>();
 builder.Services.AddScoped<IEventStore, EventStoreRepositorio>();
-
+builder.Services.AddScoped<IValidator<Pais>, PaisValidador>();
 // Command handler (pode receber via DI)
 builder.Services.AddScoped<PaisManipuladorDeComando>();
-
 builder.Services.AddScoped<EventStoreServico>();// Add services to the container.
 
 builder.Services.AddControllers();
