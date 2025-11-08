@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Aplicacao\Aplicacao.csproj" />
-    <ProjectReference Include="..\IbfraEstrutura\InfraEstrutura.csproj" />
+    <ProjectReference Include="..\InfraEstrutura\InfraEstrutura.csproj" />
   </ItemGroup>
 
 </Project>

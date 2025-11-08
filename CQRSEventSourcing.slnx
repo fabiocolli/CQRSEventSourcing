@@ -9,6 +9,6 @@
     <Project Path="Dominio/Dominio.csproj" />
   </Folder>
   <Folder Name="/3 - InfraEstrutura/">
-    <Project Path="IbfraEstrutura/InfraEstrutura.csproj" />
+    <Project Path="InfraEstrutura/InfraEstrutura.csproj" />
   </Folder>
 </Solution>
