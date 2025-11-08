@@ -3,11 +3,11 @@ using Dominio.Entidades;
 using InfraEstrutura.EventSourcing;
 using Microsoft.EntityFrameworkCore;
 
-namespace InfraEstrutura.ContextoContexto
+namespace InfraEstrutura.Contextos
 {
 	public class Contexto : DbContext
 	{
-		public DbSet<Pais> Pais { get; set; }
+		public DbSet<Pais> Paises { get; set; }
 		public DbSet<EventoArmazenado> EventStore { get; set; }
 
 		public Contexto(DbContextOptions<Contexto> options) : base(options) { }
@@ -40,7 +40,7 @@ namespace InfraEstrutura.ContextoContexto
 
 			modelBuilder.Entity<EventoArmazenado>(b =>
 			{
-				b.Property(e => e.AggregateId)
+				b.Property(e => e.IdAgregado)
 					.IsRequired();
 
 				b.Property(e => e.DataHoraUtc)

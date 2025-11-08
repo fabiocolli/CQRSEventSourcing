@@ -1,11 +1,10 @@
-﻿
-using Dominio.Base;
+﻿using Dominio.Base;
 
 namespace Dominio.Interfaces
 {
 	public interface IEventStore
 	{
-		Task SalvarEventosAsync(Guid aggregateId, IEnumerable<EventoBase> eventos);
-		Task<IEnumerable<string>> ObterEventosRawAsync(Guid aggregateId);
+		Task SalvarEventosAssincrono(Guid idAgregado, IEnumerable<EventoBase> eventos);
+		Task<IEnumerable<string>> ObterEventosAssincrono(Guid idAgregado);
 	}
 }

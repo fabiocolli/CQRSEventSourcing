@@ -1,8 +1,8 @@
 ﻿using Dominio.Base;
 using Dominio.Interfaces;
-using InfraEstrutura.ContextoContexto;
+using InfraEstrutura.Contextos;
 using InfraEstrutura.EventSourcing;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace InfraEstrutura.Repositorios
@@ -16,23 +16,23 @@ namespace InfraEstrutura.Repositorios
 			_contexto = contexto;
 		}
 
-		public async Task<IEnumerable<string>> ObterEventosRawAsync(Guid aggregateId)
+		public async Task<IEnumerable<string>> ObterEventosAssincrono(Guid idAgregado)
 		{
 			return await _contexto.EventStore
 				.AsNoTracking()
-				.Where(e => e.AggregateId == aggregateId)
+				.Where(e => e.IdAgregado == idAgregado)
 				.OrderBy(e => e.DataHoraUtc)
 				.Select(e => e.Payload)
 				.ToListAsync();
 		}
 
-		public async Task SalvarEventosAsync(Guid aggregateId, IEnumerable<EventoBase> eventos)
+		public async Task SalvarEventosAssincrono(Guid idAgregado, IEnumerable<EventoBase> eventos)
 		{
 			foreach (var e in eventos)
 			{
 				var armazenado = new EventoArmazenado
 				{
-					AggregateId = aggregateId,
+					IdAgregado = idAgregado,
 					Tipo = e.Tipo,
 					Payload = JsonSerializer.Serialize(e, e.GetType()),
 					DataHoraUtc = e.DataHoraUtc,

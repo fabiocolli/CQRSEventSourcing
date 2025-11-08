@@ -4,7 +4,7 @@ using Dominio.Entidades;
 using Dominio.Interfaces;
 using Dominio.Validacoes;
 using FluentValidation;
-using InfraEstrutura.ContextoContexto;
+using InfraEstrutura.Contextos;
 using InfraEstrutura.Repositorios;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;

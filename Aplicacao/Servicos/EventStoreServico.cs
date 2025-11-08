@@ -12,9 +12,9 @@ namespace Aplicacao.Servicos
 			_eventStore = eventStore;
 		}
 
-		public async Task SalvarAsync(Guid aggregateId, IEnumerable<EventoBase> eventos)
+		public async Task SalvarAsync(Guid idAgregado, IEnumerable<EventoBase> eventos)
 		{
-			await _eventStore.SalvarEventosAsync(aggregateId, eventos);
+			await _eventStore.SalvarEventosAssincrono(idAgregado, eventos);
 		}
 	}
 }

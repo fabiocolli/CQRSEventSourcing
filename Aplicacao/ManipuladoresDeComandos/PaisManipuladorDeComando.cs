@@ -38,7 +38,7 @@ namespace Aplicacao.ManipuladoresDeComandos
 			await _paisRepositorio.AdicionarAsync(pais);
 
 			// Persistir eventos no event store
-			await _eventStore.SalvarEventosAsync(pais.Id, pais.Eventos);
+			await _eventStore.SalvarEventosAssincrono(pais.Id, pais.Eventos);
 
 			// Limpar eventos após salvar (bom para evitar reenvio)
 			pais.LimparEventos();
@@ -67,7 +67,7 @@ namespace Aplicacao.ManipuladoresDeComandos
 
 			await _paisRepositorio.AtualizarAsync(existente);
 
-			await _eventStore.SalvarEventosAsync(existente.Id, existente.Eventos);
+			await _eventStore.SalvarEventosAssincrono(existente.Id, existente.Eventos);
 
 			existente.LimparEventos();
 

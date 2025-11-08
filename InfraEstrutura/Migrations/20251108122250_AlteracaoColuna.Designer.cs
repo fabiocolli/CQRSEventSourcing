@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InfraEstrutura.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20251107171525_CriacaoCOlunaVersao")]
-    partial class CriacaoCOlunaVersao
+    [Migration("20251108122250_AlteracaoColuna")]
+    partial class AlteracaoColuna
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,11 +57,11 @@ namespace InfraEstrutura.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<Guid>("AggregateId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTimeOffset>("DataHoraUtc")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("IdAgregado")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Payload")
                         .IsRequired()
